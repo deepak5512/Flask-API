@@ -218,7 +218,7 @@ def evaluate_answers(model, image_path, correct_answers):
 	return marks
 
 
-UPLOAD_FOLDER = 'D:/pythonProject/static'
+UPLOAD_FOLDER = './static'
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg'])
 
 
@@ -245,7 +245,7 @@ def upload_media():
 		file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
 
 	directory = file_path
-	model_path = "D:/pythonProject/model_mae_7.keras"
+	model_path = "./model_mae_7.keras"
 	model = tf.keras.models.load_model(model_path)
 	correct_answers = ['False', 'False', 'False', 'False', 'False', 'False', 'True', 'True', 'True', 'True']
 
