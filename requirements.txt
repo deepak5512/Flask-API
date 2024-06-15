@@ -1,6 +1,6 @@
 flask
 tensorflow
-os
+os-sys
 numpy
 pytesseract
 nltk
