@@ -1,0 +1,8 @@
+flask
+tensorflow
+os
+numpy
+pytesseract
+nltk
+opencv-python
+os-sys
