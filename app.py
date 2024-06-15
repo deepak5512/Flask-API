@@ -1,4 +1,4 @@
-import os
+# import os
 from werkzeug.utils import secure_filename
 from flask import Flask, request, jsonify
 import cv2
@@ -241,8 +241,12 @@ def upload_media():
 	file_path = ""
 	if file and allowed_file(file.filename):
 		filename = secure_filename(file.filename)
-		file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-		file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+		# file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+		# file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+
+		upload_folder = app.config['UPLOAD_FOLDER']
+		file_path = upload_folder + '/' + filename
+		file.save(file_path)
 
 	directory = file_path
 	model_path = "./model_mae_7.keras"
