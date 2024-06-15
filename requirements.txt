@@ -4,3 +4,4 @@ numpy
 pytesseract
 nltk
 opencv-python
+Gunicorn
