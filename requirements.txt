@@ -1,7 +1,8 @@
 flask
 tensorflow
+os
 numpy
 pytesseract
 nltk
 opencv-python
-Gunicorn
+os-sys

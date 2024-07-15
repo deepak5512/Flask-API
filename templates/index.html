@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Image Classification</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <style>
+    body {
+      background-color: #2c3e50;
+      color: #ecf0f1;
+    }
+    .jumbotron {
+      background-color: #34495e;
+      color: #ecf0f1;
+    }
+    .form-control {
+      background-color: #34495e;
+      color: #ecf0f1;
+      border: 1px solid #95a5a6;
+  border-radius: 4px;
+    }
+    .form-control::placeholder {
+      color: #95a5a6;
+    }
+    .btn-success {
+      background-color: #27ae60;
+      border: none;
+    }
+    .btn-success:hover {
+      background-color: #2ecc71;
+    }
+    .input-box {
+      background-color: #34495e;
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+    .input-group {
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+    }
+    .input-group label {
+      flex: 0 0 30%;
+      text-align: right;
+      margin-right: 10px;
+    }
+    .input-column {
+      width: 50%;
+      float: left;
+      padding: 0 10px;
+    }
+    .input-container:after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+    .text-center {
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1 class="jumbotron text-center">Marks Prediction</h1>
+  <br><br>
+  <form class="form-horizontal" action="/predict" method="post" enctype="multipart/form-data">
+
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="imageUpload">Upload Your Image:</label>
+      <div class="col-sm-10">
+        <input type="file" class="form-control" name="my_image" id="imageUpload">
+      </div>
+    </div>
+
+    <div class="input-box input-container">
+      <div class="input-column">
+        <div class="form-group input-group">
+          <label class="control-label" for="input1">Question 1:</label>
+          <input type="text" class="form-control" name="input1" id="input1" placeholder="True or False">
+        </div>
+
+        <div class="form-group input-group">
+          <label class="control-label" for="input2">Question 2:</label>
+          <input type="text" class="form-control" name="input2" id="input2" placeholder="True or False">
+        </div>
+
+        <div class="form-group input-group">
+          <label class="control-label" for="input3">Question 3:</label>
+          <input type="text" class="form-control" name="input3" id="input3" placeholder="True or False">
+        </div>
+
+        <div class="form-group input-group">
+          <label class="control-label" for="input4">Question 4:</label>
+          <input type="text" class="form-control" name="input4" id="input4" placeholder="True or False">
+        </div>
+
+        <div class="form-group input-group">
+          <label class="control-label" for="input5">Question 5:</label>
+          <input type="text" class="form-control" name="input5" id="input5" placeholder="True or False">
+        </div>
+      </div>
+
+      <div class="input-column">
+        <div class="form-group input-group">
+          <label class="control-label" for="input6">Question 6:</label>
+          <input type="text" class="form-control" name="input6" id="input6" placeholder="True or False">
+        </div>
+
+        <div class="form-group input-group">
+          <label class="control-label" for="input7">Question 7:</label>
+          <input type="text" class="form-control" name="input7" id="input7" placeholder="True or False">
+        </div>
+
+        <div class="form-group input-group">
+          <label class="control-label" for="input8">Question 8:</label>
+          <input type="text" class="form-control" name="input8" id="input8" placeholder="True or False">
+        </div>
+
+        <div class="form-group input-group">
+          <label class="control-label" for="input9">Question 9:</label>
+          <input type="text" class="form-control" name="input9" id="input9" placeholder="True or False">
+        </div>
+
+        <div class="form-group input-group">
+          <label class="control-label" for="input10">Question 10:</label>
+          <input type="text" class="form-control" name="input10" id="input10" placeholder="True or False">
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group text-center">
+      <div class="col-sm-12">
+        <button type="submit" class="btn btn-success">Predict</button>
+      </div>
+    </div>
+  </form>
+
+  {% if prediction %}
+    <div class="text-center">
+      <img src="{{img_path}}" height="400px" width="400px" class="img-thumbnail">
+      <h2>Marks: <i>{{prediction}}</i></h2>
+    </div>
+  {% endif %}
+
+</div>
+</body>
+</html>

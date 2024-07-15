@@ -1,6 +1,6 @@
 # import os
 from werkzeug.utils import secure_filename
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 import cv2
 import numpy as np
 import pytesseract
@@ -230,33 +230,46 @@ app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 
-@app.route('/predict', methods = ['POST'])
+@app.route("/", methods = ['GET', 'POST'])
+def main():
+	return render_template("index.html")
+
+@app.route('/predict', methods = ['GET', 'POST'])
 def upload_media():
-	if 'file' not in request.files:
-		return jsonify({'error': 'media not provided'}), 400
-	file = request.files['file']
-	if file.filename == '':
-		return jsonify({'error': 'no file selected'}), 400
+	global marks, file_path
+	if request.method == 'POST':
+		# if 'file' not in request.files:
+		# 	return jsonify({'error': 'media not provided'}), 400
+		file = request.files['my_image']
+		if file.filename == '':
+			return jsonify({'error': 'no file selected'}), 400
 
-	file_path = ""
-	if file and allowed_file(file.filename):
-		filename = secure_filename(file.filename)
-		# file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-		# file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+		file_path = ""
+		if file and allowed_file(file.filename):
+			filename = secure_filename(file.filename)
+			file_path = "static/" + filename
+			file.save(file_path)
 
-		upload_folder = app.config['UPLOAD_FOLDER']
-		file_path = upload_folder + '/' + filename
-		file.save(file_path)
+		directory = file_path
+		model_path = "./model_mae_7.keras"
+		model = tf.keras.models.load_model(model_path)
+		correct_answers = [
+			request.form.get('input1'),
+			request.form.get('input2'),
+			request.form.get('input3'),
+			request.form.get('input4'),
+			request.form.get('input5'),
+			request.form.get('input6'),
+			request.form.get('input7'),
+			request.form.get('input8'),
+			request.form.get('input9'),
+			request.form.get('input10')
+		]
 
-	directory = file_path
-	model_path = "./model_mae_7.keras"
-	model = tf.keras.models.load_model(model_path)
-	correct_answers = ['False', 'False', 'False', 'False', 'False', 'False', 'True', 'True', 'True', 'True']
+		marks = evaluate_answers(model, directory, correct_answers)
 
-	marks = evaluate_answers(model, directory, correct_answers)
+	# return jsonify({'Marks': sum(marks)})
+	return render_template("index.html", prediction = sum(marks), img_path = file_path)
 
-	return jsonify({'Marks': sum(marks)})
-
-
-# if __name__ == '__main__':
-# 	app.run(debug = True)
+if __name__ == '__main__':
+	app.run(debug = True)
