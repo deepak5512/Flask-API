@@ -236,7 +236,7 @@ def main():
 
 @app.route('/predict', methods = ['GET', 'POST'])
 def upload_media():
-	global marks, file_path
+	global marks, file_path, correct_answers
 	if request.method == 'POST':
 		# if 'file' not in request.files:
 		# 	return jsonify({'error': 'media not provided'}), 400
@@ -269,7 +269,8 @@ def upload_media():
 		marks = evaluate_answers(model, directory, correct_answers)
 
 	# return jsonify({'Marks': sum(marks)})
-	return render_template("index.html", prediction = sum(marks), img_path = file_path)
+	print(correct_answers)
+	return render_template("index.html", prediction = sum(marks), img_path = file_path, correct_answers = correct_answers)
 
 if __name__ == '__main__':
 	app.run(debug = True)

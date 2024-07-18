@@ -81,54 +81,54 @@
       <div class="input-column">
         <div class="form-group input-group">
           <label class="control-label" for="input1">Question 1:</label>
-          <input type="text" class="form-control" name="input1" id="input1" placeholder="True or False">
+          <input type="text" class="form-control form-input-text" name="input1" id="input1" placeholder="True or False">
         </div>
 
         <div class="form-group input-group">
           <label class="control-label" for="input2">Question 2:</label>
-          <input type="text" class="form-control" name="input2" id="input2" placeholder="True or False">
+          <input type="text" class="form-control form-input-text" name="input2" id="input2" placeholder="True or False">
         </div>
 
         <div class="form-group input-group">
           <label class="control-label" for="input3">Question 3:</label>
-          <input type="text" class="form-control" name="input3" id="input3" placeholder="True or False">
+          <input type="text" class="form-control form-input-text" name="input3" id="input3" placeholder="True or False">
         </div>
 
         <div class="form-group input-group">
           <label class="control-label" for="input4">Question 4:</label>
-          <input type="text" class="form-control" name="input4" id="input4" placeholder="True or False">
+          <input type="text" class="form-control form-input-text" name="input4" id="input4" placeholder="True or False">
         </div>
 
         <div class="form-group input-group">
           <label class="control-label" for="input5">Question 5:</label>
-          <input type="text" class="form-control" name="input5" id="input5" placeholder="True or False">
+          <input type="text" class="form-control form-input-text" name="input5" id="input5" placeholder="True or False">
         </div>
       </div>
 
       <div class="input-column">
         <div class="form-group input-group">
           <label class="control-label" for="input6">Question 6:</label>
-          <input type="text" class="form-control" name="input6" id="input6" placeholder="True or False">
+          <input type="text" class="form-control form-input-text" name="input6" id="input6" placeholder="True or False">
         </div>
 
         <div class="form-group input-group">
           <label class="control-label" for="input7">Question 7:</label>
-          <input type="text" class="form-control" name="input7" id="input7" placeholder="True or False">
+          <input type="text" class="form-control form-input-text" name="input7" id="input7" placeholder="True or False">
         </div>
 
         <div class="form-group input-group">
           <label class="control-label" for="input8">Question 8:</label>
-          <input type="text" class="form-control" name="input8" id="input8" placeholder="True or False">
+          <input type="text" class="form-control form-input-text" name="input8" id="input8" placeholder="True or False">
         </div>
 
         <div class="form-group input-group">
           <label class="control-label" for="input9">Question 9:</label>
-          <input type="text" class="form-control" name="input9" id="input9" placeholder="True or False">
+          <input type="text" class="form-control form-input-text" name="input9" id="input9" placeholder="True or False">
         </div>
 
         <div class="form-group input-group">
           <label class="control-label" for="input10">Question 10:</label>
-          <input type="text" class="form-control" name="input10" id="input10" placeholder="True or False">
+          <input type="text" class="form-control form-input-text" name="input10" id="input10" placeholder="True or False">
         </div>
       </div>
     </div>
@@ -140,7 +140,21 @@
     </div>
   </form>
 
-  {% if prediction %}
+  {% if (prediction) %}
+    <input type="hidden"  id="correct_answers" value="{{ correct_answers }}">
+    <script>
+      
+      var response_array =  (document.getElementById('correct_answers').value);
+      response_array = response_array.replace(/'/g, '"');
+      response_array = JSON.parse(response_array);
+      const form_inputs = document.getElementsByClassName('form-input-text');
+      if(response_array){
+        for(let i = 0; i < response_array.length;i++){
+          form_inputs[i].value = response_array[i];
+        }
+      }
+    </script>
+   
     <div class="text-center">
       <img src="{{img_path}}" height="400px" width="400px" class="img-thumbnail">
       <h2>Marks: <i>{{prediction}}</i></h2>

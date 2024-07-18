@@ -6,4 +6,3 @@ pytesseract
 nltk
 opencv-python
 os-sys
-werkzeug==2.2.2
